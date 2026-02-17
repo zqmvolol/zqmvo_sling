@@ -1,175 +1,170 @@
 <div align="center">
-🎒 zqmvo_sling
-Advanced Weapon Sling System for FiveM
+
+# 🎒 zqmvo_sling
+
+**Advanced Weapon Sling System for FiveM**
 
 Built for ESX + ox_inventory
 
-
-
-
-
-
-
-
-
+![FiveM](https://img.shields.io/badge/FiveM-Resource-blue?style=flat-square)
+![ESX](https://img.shields.io/badge/Framework-ESX-orange?style=flat-square)
+![ox_inventory](https://img.shields.io/badge/Inventory-ox__inventory-green?style=flat-square)
+![License](https://img.shields.io/badge/License-Free%20to%20Use-lightgrey?style=flat-square)
 
 </div>
-📌 Overview
 
-zqmvo_sling is a fully synced weapon sling system designed for serious roleplay servers.
+---
 
-It integrates directly with ox_inventory, supports custom add-on weapons, and ensures that attachments remain visible while slung.
+## 📌 Overview
+
+`zqmvo_sling` is a fully synced weapon sling system designed for serious roleplay servers. It integrates directly with `ox_inventory`, supports custom add-on weapons, and ensures that attachments remain visible while slung.
 
 Built for performance, realism, and clean synchronization.
 
-🔥 Features
+---
 
-Fully synced (everyone sees slung weapons)
+## 🔥 Features
 
-ox_inventory integration
+| Feature | Status |
+|---|---|
+| Fully synced (all clients see slung weapons) | ✅ |
+| `ox_inventory` integration | ✅ |
+| Add-on weapon compatible | ✅ |
+| Attachments visible while slung | ✅ |
+| PD-only restriction (configurable) | ✅ |
+| Blocks drawing slung weapons | ✅ |
+| `ox_lib` notifications | ✅ |
+| Clean network sync | ✅ |
+| No inventory removal | ✅ |
+| Uses weapon objects (not fake props) | ✅ |
 
-Add-on weapon compatible
+---
 
-Attachments visible while slung
+## 🎥 Preview
 
-PD-only restriction (configurable)
+> Add screenshots or GIFs here.
 
-Blocks drawing slung weapons
+---
 
-ox_lib notifications
+## 📦 Requirements
 
-Clean network sync
+- [`ox_inventory`](https://github.com/overextended/ox_inventory)
+- [`ox_lib`](https://github.com/overextended/ox_lib)
+- [ESX Framework](https://github.com/esx-framework/esx_core)
 
-No inventory removal
+---
 
-Uses weapon objects (not fake props)
+## ⚙️ Installation
 
-🎥 Preview
+1. Drag `zqmvo_sling` into your `resources` folder.
+2. Add the following to your `server.cfg`:
 
-Add screenshots or GIFs here:
-
-
-
-
-🔒 Weapon Draw Lock System
-
-If a player attempts to equip a weapon that is currently slung:
-
-"You currently have this weapon slung. Unsling it first."
-
-The system will:
-
-Instantly disarm the player
-
-Block usage until unslung
-
-Prevent animation abuse
-
-📦 Requirements
-
-ox_inventory
-
-ox_lib
-
-ESX Framework
-
-⚙️ Installation
-
-Drag zqmvo_sling into your resources folder.
-
-Add this to your server.cfg:
-
+```cfg
 ensure ox_lib
 ensure ox_inventory
 ensure zqmvo_sling
+```
 
-Restart your server.
+3. Restart your server.
 
-🎮 Commands
+---
 
-/sling 1 → Front sling
-/sling 2 → Back sling
+## 🎮 Commands
 
-👮 Job Restriction
+| Command | Description |
+|---|---|
+| `/sling 1` | Front sling |
+| `/sling 2` | Back sling |
 
-Edit config.lua:
+---
 
+## 👮 Job Restriction
+
+Edit `config.lua` to configure which jobs can use the sling system:
+
+```lua
 Config.AllowedJobs = {
-  'police',
-  'offpolice'
+    'police',
+    'offpolice'
 }
+```
 
+> Remove `'offpolice'` if you do not want off-duty officers to sling weapons.
 
-Remove offpolice if you do not want off-duty officers to sling weapons.
+---
 
-🔫 Add-On Weapon Support
+## 🔒 Weapon Draw Lock System
 
-Automatically supports:
+If a player attempts to equip a weapon that is currently slung, they will receive the following notification:
 
-Custom weapon hashes (example: WEAPON_MCX)
+> *"You currently have this weapon slung. Unsling it first."*
 
-Custom magazines
+The system will then:
+- Instantly disarm the player
+- Block weapon usage until unslung
+- Prevent animation abuse
 
-Custom suppressors
+---
 
-Custom scopes
+## 🔫 Add-On Weapon Support
 
-Custom grips
+The system automatically supports:
+- Custom weapon hashes (e.g. `WEAPON_MCX`)
+- Custom magazines
+- Custom suppressors
+- Custom scopes
+- Custom grips
 
-If attachments do not show while slung:
+**If attachments are not showing while slung, verify the following:**
+- Component hash exists in `weapons.lua`
+- Metadata is correctly storing components
+- Attachment mapping exists in `config.lua`
 
-Verify component hash exists
+---
 
-Verify metadata stores components
+## 🧠 How It Works
 
-Ensure mapping exists in config.lua
+1. Reads current weapon + metadata from `ox_inventory`
+2. Sends weapon hash + component list to the server
+3. Server syncs data to all clients
+4. Each client creates a `CreateWeaponObject`
+5. Components applied using `GiveWeaponComponentToWeaponObject`
 
-🛠 Troubleshooting
-Weapon says "Holstered Now"
+---
 
-This is normal ox_inventory behavior when disarming.
+## 🛠 Troubleshooting
 
-Attachments Not Showing
+**Weapon says "Holstered Now"**
 
-Check:
+This is normal `ox_inventory` behavior when disarming. No action needed.
 
-Component hash exists in weapons.lua
+**Attachments Not Showing**
 
-Metadata is correctly storing components
+Check the following:
+- Component hash exists in `weapons.lua`
+- Metadata is correctly storing components
+- Attachment mapping exists in `config.lua`
 
-Attachment mapping exists in config.lua
+---
 
-🧠 How It Works
+## 🚀 Planned Updates
 
-Reads current weapon + metadata from ox_inventory
+- [ ] Multi-weapon sling slots
+- [ ] Improved sling animations
+- [ ] QBCore support
+- [ ] Configurable bone positioning
+- [ ] Performance optimization pass
 
-Sends weapon hash + component list to server
+---
 
-Server syncs to all clients
+## 📄 License
 
-Each client creates a CreateWeaponObject
+Free to use and modify. **Do not resell.**
 
-Components applied using GiveWeaponComponentToWeaponObject
-
-🚀 Planned Updates
-
-Multi-weapon sling slots
-
-Improved sling animations
-
-QBCore support
-
-Configurable bone positioning
-
-Performance optimization pass
-
-📄 License
-
-Free to use and modify.
-Do not resell.
+---
 
 <div align="center">
 
-Made for serious RP servers.
+Made with ❤️ for serious RP servers.
 
 </div>
